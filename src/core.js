@@ -22,7 +22,10 @@ export function extractAndShow(Readability, TurndownService, marked) {
 
   function showDialog(md) {
     var existing = document.getElementById('md-extractor-modal');
-    if(existing) existing.remove();
+    if(existing) {
+        if (window.__md_extractor_cleanup) window.__md_extractor_cleanup();
+        existing.remove();
+    }
 
     var overlay = document.createElement('div');
     overlay.id = 'md-extractor-modal';
@@ -79,7 +82,8 @@ export function extractAndShow(Readability, TurndownService, marked) {
 
     function closeModal() {
       overlay.remove();
-      document.removeEventListener('keydown', handleEsc, true);
+      window.removeEventListener('keydown', handleEsc, true);
+      delete window.__md_extractor_cleanup;
     }
 
     function handleEsc(e) {
@@ -90,7 +94,8 @@ export function extractAndShow(Readability, TurndownService, marked) {
       }
     }
 
-    document.addEventListener('keydown', handleEsc, true);
+    window.addEventListener('keydown', handleEsc, true);
+    window.__md_extractor_cleanup = closeModal;
 
     var closeBtn = document.createElement('button');
     closeBtn.innerText = 'Close';
