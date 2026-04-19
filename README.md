@@ -1,4 +1,4 @@
-# to-markdown-local-bookmarklet
+# markdown-extractor-bookmarklet
 
 Extract clean Markdown from any article on the web using a simple browser bookmarklet.
 

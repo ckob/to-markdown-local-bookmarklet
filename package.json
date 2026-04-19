@@ -1,5 +1,5 @@
 {
-  "name": "to-markdown-local-bookmarklet",
+  "name": "markdown-extractor-bookmarklet",
   "version": "0.0.0",
   "description": "Extract clean Markdown from any article.",
   "scripts": {
