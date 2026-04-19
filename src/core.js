@@ -77,10 +77,25 @@ export function extractAndShow(Readability, TurndownService, marked) {
     var footer = document.createElement('div');
     footer.style.cssText = 'display:flex;justify-content:flex-end;gap:10px;';
 
+    function closeModal() {
+      overlay.remove();
+      document.removeEventListener('keydown', handleEsc, true);
+    }
+
+    function handleEsc(e) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        closeModal();
+      }
+    }
+
+    document.addEventListener('keydown', handleEsc, true);
+
     var closeBtn = document.createElement('button');
     closeBtn.innerText = 'Close';
     closeBtn.style.cssText = 'padding:10px 20px;cursor:pointer;border:none;border-radius:4px;background:#eee;color:#333;font-size:14px;';
-    closeBtn.onclick = function() { overlay.remove(); };
+    closeBtn.onclick = closeModal;
 
     var copyBtn = document.createElement('button');
     copyBtn.innerText = 'Copy Markdown';
